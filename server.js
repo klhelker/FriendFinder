@@ -1,29 +1,19 @@
-const express = require('express')
-const app = express()
-var bodyParser = require('body-parser')
-var PORT = process.env.PORT || 3000
+const express = require("express");
+const apiRoutes = require("./app/routing/apiRoutes");
+const htmlRoutes = require("./app/routing/htmlRoutes");
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+// Initialize the app and create a port
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
-app.use(bodyParser.json())
- 
-app.use(function (req, res) {
-  res.setHeader('Content-Type', 'text/plain')
-  res.write('you posted:\n')
-  res.end(JSON.stringify(req.body, null, 2))
-});
+// Set up body parsing, static, and route middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use("/api", apiRoutes);
+app.use("/", htmlRoutes);
 
-app.get("/", function(req, res) {
-    res.json(path.join(__dirname, "public/index.html"));
-  });
+// Start the server on the port
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 
 
-
-app.listen(PORT, function(){
-    console.log("app listening on " + PORT)
-});

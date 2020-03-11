@@ -7,19 +7,32 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var friendData = [
+var friendsArray = [
     {
-        routeName: "tables",
-        customerName: "Kristin",
-        customerEmail: "kristin@email.com",
-        phoneNumber: "123-123-1234",
-        customerID: "rezzie1"
+        friendName: "Kristin",
+        friendPhoto: 
+        friendResponse: "",
+        
     },
-    {
-        routeName: "tables",
-        customerName: "Hallie",
-        customerEmail: "hallie@email.com",
-        phoneNumber: "119-380-1270",
-        customerID: "rezzie2"
-    }
+    
 ];
+
+module.exports=friendsArray;
+
+{
+    "name":"Ahmed",
+    "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+    "scores":[
+        5,
+        1,
+        4,
+        4,
+        5,
+        1,
+        2,
+        5,
+        4,
+        1
+      ]
+  }
+  

@@ -117,14 +117,10 @@
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
-  // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-  // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-  // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-  // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
+ 
 
   $(".submit").on("click", function(event) {
     event.preventDefault();
-
     // Here we grab the form elements
     var newFriend = {
       friendName: $("#friend-name").val().trim(),
@@ -142,12 +138,9 @@
     $.post("/api/friends", newFriend,
       function(data) {
 
-        // If a table is available... tell user they are booked.
         if (data) {
           alert("Yay! You matched");
         }
-
-        // If a table is available... tell user they on the waiting list.
         else {
           alert("Not a match");
         }
@@ -160,5 +153,37 @@
       });
 
   });
+
+
+  function runFriendQuery() {
+    // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+    $.ajax({ url: "/api/friends", method: "GET" })
+      .then(function(friendData) {
+
+        // Here we then log the tableData to console, where it will show up as an object.
+        console.log(friendData);
+        console.log("------------------------------------");
+
+        // Loop through and display each of the customers
+        for (var i = 0; i < friendData.length; i++) {
+
+          // Get a reference to the tableList element and populate it with tables
+          var friendList = $("#friendList");
+
+          // Then display the fields in the HTML (Section Name, Date, URL)
+          var friendInfo = $("<li class='list-group-item mt-4'>");
+
+          friendInfo.append(
+            $("<h2>").text("Table #" + (i + 1)),
+            $("<hr>"),
+            $("<h2>").text("Name: " + friendData[i].friendName),
+            $("<h2>").text("Email: "  + friendData[i].friendEmail),
+            $("<h2>").text("Score: " + scoreData[i].scoreNumber)
+          );
+
+          friendList.append(listItem);
+        }
+      });
+  }
 
 </script>
