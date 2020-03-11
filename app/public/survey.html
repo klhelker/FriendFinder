@@ -124,7 +124,7 @@
     // Here we grab the form elements
     var newFriend = {
       friendName: $("#friend-name").val().trim(),
-      friendPhoto: $("#friend-phone").val().trim(),
+      friendPhoto: $("#friend-photo").val().trim(),
       friendAnswers: $("#friend-answers").val().trim(),
     }
 
@@ -177,7 +177,7 @@
             $("<h2>").text("Table #" + (i + 1)),
             $("<hr>"),
             $("<h2>").text("Name: " + friendData[i].friendName),
-            $("<h2>").text("Email: "  + friendData[i].friendEmail),
+            $("<h2>").text("Photo: "  + friendData[i].friendPhoto),
             $("<h2>").text("Score: " + scoreData[i].scoreNumber)
           );
 
