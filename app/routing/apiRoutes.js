@@ -1,4 +1,4 @@
-const friendData = require ("../data");
+const friendData = require ("../data/friends");
 const router = require("express").Router();
 // const "db info"
 router.get("/api/friends", function (req, res) {
