@@ -1,5 +1,5 @@
 var express = require("express");
-var path = require('path');
+var path = require("path");
 
 var app = express();
 var PORT = 3000;
@@ -9,7 +9,6 @@ app.use(express.json());
 
 
 // var inputItem = $("<input type='dropdown' class='answer-button'>").attr("name", questions[q].id).attr("value", questions[q].answers[i])
-
 
 
 var friendsArray = [
