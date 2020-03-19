@@ -1,16 +1,15 @@
-const friendData = require ("../data/friends");
+const friendsArray = require ("../data/friends.js");
 const router = require("express").Router();
 // const "db info"
 router.get("/api/friends", function (req, res) {
-    return res.json(friendData);
+  
+     res.json(friendsArray);
 });
 
-router.post("/api/friends", function(req, res){
+router.post("/api/friends", function (req, res){
     var newFriend = req.body;
+    newFriend.push(req.body);
     console.log(newFriend);
 })
 
-router.get("app/data/friends", function(req,res){
-    
-})
 module.exports=router

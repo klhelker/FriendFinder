@@ -213,39 +213,20 @@
 
     // This line is the magic. It"s very similar to the standard ajax function we used.
     // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-
-    $.post("/api/friends", newFriend,
-      function(data) {
-
-        if (data) {
-          alert("Yay! You matched");
-        }
-        else {
-          alert("Not a match");
-        }
-
-        // Clear the form when submitting
-        $("#friend-name").val("");
-        $("#friend-photo").val("");
-        $("#friend-answers").val("");
-
-      });
-
-  });
+    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or fals
 
 
   function runFriendQuery() {
     // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
     $.ajax({ url: "/api/friends", method: "GET" })
-      .then(function(friendData) {
+      .then(function(newFriend) {
 
         // Here we then log the tableData to console, where it will show up as an object.
-        console.log(friendData);
+        console.log(newFriend);
         console.log("------------------------------------");
 
         // Loop through friend display
-        for (var i = 0; i < friendData.length; i++) {
+        for (var i = 0; i < friendsArray.length; i++) {
 
           // Get a reference to element and populate it with friends
           var friendList = $("#friendList");
@@ -254,16 +235,15 @@
           var friendInfo = $("<li class='list-group-item mt-4'>");
 
           friendInfo.append(
-            $("<h2>").text("Table #" + (i + 1)),
-            $("<hr>"),
-            $("<h2>").text("Name: " + friendData[i].friendName),
-            $("<h2>").text("Photo: "  + friendData[i].friendPhoto),
-            $("<h2>").text("Score: " + scoreData[i].scoreNumber)
+            $("<h2>").text("Name: " + friendsArray[i].friendName),
+            $("<h2>").text("Photo: "  + friendsArray[i].friendPhoto),
+            $("<h2>").text("Score: " +friendsArray[i].scoreNumber)
           );
 
           friendList.append(friendInfo);
         }
       });
   }
+})
 
 </script>

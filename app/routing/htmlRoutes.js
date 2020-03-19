@@ -12,9 +12,9 @@ const router = require("express").Router();
     res.sendFile(path.join(__dirname, "../public/survey.html"));
   });
 
-  // all route loads the all.html page,
-  // where all characters in the db are displayed
-  router.get("/all", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/all.html"));
-  });
+  // // all route loads the all.html page,
+  // // where all characters in the db are displayed
+  // router.get("/all", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/all.html"));
+  // });
   module.exports=router
