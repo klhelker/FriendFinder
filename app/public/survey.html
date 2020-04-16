@@ -173,7 +173,7 @@
     </div>
 
     <footer class="footer">
-      <div class="container"> <button type="submit" class="btn btn-primary submit">Submit</button>
+      <div class="container"> <button id="submit" class="btn btn-primary submit">Submit</button>
 
         <p>
           <a href="/api/home">Friend Finder Home Page</a> 
@@ -189,45 +189,20 @@
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
- 
 
-  $(".submit").on("click", function(event) {
-    event.preventDefault();
-    // Here we grab the form elements
-    var newFriend = {
-      friendName: $("#friend-name").val().trim(),
-      friendPhoto: $("#friend-photo").val().trim(),
-      answer1: $("#answer1 :selected").val().trim(),
-      answer2: $("#answer2 :selected").val().trim(),
-      answer3: $("#answer3 :selected").val().trim(),
-      answer4: $("#answer4 :selected").val().trim(),
-      answer5: $("#answer5 :selected").val().trim(),
-      answer6: $("#answer6 :selected").val().trim(),
-      answer7: $("#answer7 :selected").val().trim(),
-      answer8: $("#answer8 :selected").val().trim(),
-      answer9: $("#answer9 :selected").val().trim(),
-      answer10:$("#answer10 :selected").val().trim(),
-    }
-
-    console.log(newFriend);
-
-    // This line is the magic. It"s very similar to the standard ajax function we used.
-    // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or fals
-
-
-  function runFriendQuery() {
+   function runFriendQuery(popFriend) {
+     console.log("hi, pop friend", popFriend)
     // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-    $.ajax({ url: "/api/friends", method: "GET" })
+    $.get("/api/friends")
       .then(function(newFriend) {
-
+        console.log("promise passed")
         // Here we then log the tableData to console, where it will show up as an object.
         console.log(newFriend);
         console.log("------------------------------------");
-
+        var bbf = Infinity;
         // Loop through friend display
-        for (var i = 0; i < friendsArray.length; i++) {
-
+        for (var i = 0; i < newFriend.length; i++) {
+          // get friends list, create function to .then return value
           // Get a reference to element and populate it with friends
           var friendList = $("#friendList");
 
@@ -235,15 +210,50 @@
           var friendInfo = $("<li class='list-group-item mt-4'>");
 
           friendInfo.append(
-            $("<h2>").text("Name: " + friendsArray[i].friendName),
-            $("<h2>").text("Photo: "  + friendsArray[i].friendPhoto),
-            $("<h2>").text("Score: " +friendsArray[i].scoreNumber)
+            $("<h2>").text("Name: " + newFriend[i].friendName),
+            $("<h2>").text("Photo: "  + newFriend[i].friendPhoto),
+            $("<h2>").text("Score: " +newFriend[i].scoreNumber)
           );
 
           friendList.append(friendInfo);
         }
+
       });
+
   }
+
+  $(".submit").on("click", function(event) {
+    event.preventDefault();
+    
+   var Ans = [ 
+     parseInt($("#answer1 :selected").val(),10),
+     parseInt ($("#answer2 :selected").val(),10),
+     parseInt ($("#answer3 :selected").val().trim(),10),
+     parseInt ($("#answer4 :selected").val().trim(),10),
+     parseInt ( $("#answer5 :selected").val().trim(),10),
+     parseInt ( $("#answer6 :selected").val().trim(),10),
+     parseInt ( $("#answer7 :selected").val().trim(),10),
+     parseInt ( $("#answer8 :selected").val().trim(),10),
+     parseInt ( $("#answer9 :selected").val().trim(),10),
+     parseInt ( $("#answer10 :selected").val().trim(),10)]
+    console.log(Ans)
+    var list = Ans.reduce((i,j)=>{return i+j})
+    console.log(list)
+    var newFriend = {
+      friendName: $("#friend-name").val().trim(),
+      friendPhoto: $("#friend-photo").val().trim(),
+      answer: list
+      
+    }
+
+    console.log(newFriend);
+    runFriendQuery(newFriend)
+    // This line is the magic. It"s very similar to the standard ajax function we used.
+    // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
+    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or fals
+  
+
+
 })
 
 </script>
