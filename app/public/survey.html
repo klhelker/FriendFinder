@@ -19,7 +19,7 @@
 
    
       <h1 class="text-center">
-        <span class="material-icons">filter_vintage</span> Friend Finder Survey</h1>
+        <span class="material-icons">filter_vintage</span>Friend Finder Survey</h1>
       <hr>
       <h2 class="text-center">Answer the questions to reveal your next best friend</h2>
       <br>
@@ -196,28 +196,41 @@
     $.get("/api/friends")
       .then(function(newFriend) {
         console.log("promise passed")
-        // Here we then log the tableData to console, where it will show up as an object.
-        console.log(newFriend);
+        
+        console.log(popFriend, newFriend);
         console.log("------------------------------------");
         var bbf = Infinity;
+        var friendInfo = {};
         // Loop through friend display
         for (var i = 0; i < newFriend.length; i++) {
-          // get friends list, create function to .then return value
-          // Get a reference to element and populate it with friends
-          var friendList = $("#friendList");
-
-          // Then display the fields in the HTML 
-          var friendInfo = $("<li class='list-group-item mt-4'>");
-
-          friendInfo.append(
-            $("<h2>").text("Name: " + newFriend[i].friendName),
-            $("<h2>").text("Photo: "  + newFriend[i].friendPhoto),
-            $("<h2>").text("Score: " +newFriend[i].scoreNumber)
-          );
-
-          friendList.append(friendInfo);
+          console.log(popFriend.answer, newFriend[i].scoreNumber)
+          friendDiff = popFriend.answer - newFriend[i].scoreNumber
+          console.log(friendDiff)
+          if (friendDiff < 0){
+            
+            friendDiff = friendDiff * (-1)
+            console.log(friendDiff)
+          }
+          if (friendDiff < bbf){
+            friendInfo = newFriend[i]
+            bbf = friendDiff
+            console.log(bbf)
+          }
+          
         }
+        console.log("bff determined", friendInfo)
+        var friendList = $("#friendList");
 
+// Then display the fields in the HTML 
+var friendInfo = $("<li class='list-group-item mt-4'>");
+
+friendInfo.append(
+  $("<h2>").text("Name: " + newFriend[i].friendName),
+  $("<h2>").text("Photo: "  + newFriend[i].friendPhoto),
+  $("<h2>").text("Score: " +newFriend[i].scoreNumber)
+);
+
+friendList.append(friendInfo);
       });
 
   }
@@ -226,16 +239,16 @@
     event.preventDefault();
     
    var Ans = [ 
-     parseInt($("#answer1 :selected").val(),10),
+     parseInt ($("#answer1 :selected").val(),10),
      parseInt ($("#answer2 :selected").val(),10),
-     parseInt ($("#answer3 :selected").val().trim(),10),
-     parseInt ($("#answer4 :selected").val().trim(),10),
-     parseInt ( $("#answer5 :selected").val().trim(),10),
-     parseInt ( $("#answer6 :selected").val().trim(),10),
-     parseInt ( $("#answer7 :selected").val().trim(),10),
-     parseInt ( $("#answer8 :selected").val().trim(),10),
-     parseInt ( $("#answer9 :selected").val().trim(),10),
-     parseInt ( $("#answer10 :selected").val().trim(),10)]
+     parseInt ($("#answer3 :selected").val(),10),
+     parseInt ($("#answer4 :selected").val(),10),
+     parseInt ( $("#answer5 :selected").val(),10),
+     parseInt ( $("#answer6 :selected").val(),10),
+     parseInt ( $("#answer7 :selected").val(),10),
+     parseInt ( $("#answer8 :selected").val(),10),
+     parseInt ( $("#answer9 :selected").val(),10),
+     parseInt ( $("#answer10 :selected").val(),10)]
     console.log(Ans)
     var list = Ans.reduce((i,j)=>{return i+j})
     console.log(list)
@@ -243,7 +256,6 @@
       friendName: $("#friend-name").val().trim(),
       friendPhoto: $("#friend-photo").val().trim(),
       answer: list
-      
     }
 
     console.log(newFriend);
