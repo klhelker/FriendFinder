@@ -173,10 +173,45 @@
     </div>
 
     <footer class="footer">
-      <div class="container"> <button id="submit" class="btn btn-primary submit">Submit</button>
+      <div class="container"> <button id="submit" type="button" class="btn btn-primary submit" data-toggle="modal" data-target="#centralModalSm">Launch BFF</button>
+        <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#centralModalSm">
+Launch BFF
+</button> -->
+
+<!-- Central Modal Small -->
+<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 text-center" id="myModalLabel">Your New Best Friend!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id ="friendList"></div>
+        <h2 id="name"></h2>
+        <img id= "photo" src=""></img>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sm">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Central Modal Small -->
+
+
+
 
         <p>
-          <a href="/api/home">Friend Finder Home Page</a> 
+          <a href="/">Friend Finder Home Page</a> 
           
       </div>
     </footer>
@@ -214,27 +249,25 @@
           if (friendDiff < bbf){
             friendInfo = newFriend[i]
             bbf = friendDiff
-            console.log(bbf)
+            
           }
           
         }
         console.log("bff determined", friendInfo)
         var friendList = $("#friendList");
-
-// Then display the fields in the HTML 
-var friendInfo = $("<li class='list-group-item mt-4'>");
-
-friendInfo.append(
-  $("<h2>").text("Name: " + newFriend[i].friendName),
-  $("<h2>").text("Photo: "  + newFriend[i].friendPhoto),
-  $("<h2>").text("Score: " +newFriend[i].scoreNumber)
-);
-
-friendList.append(friendInfo);
+        console.log(friendList)
+        $("#name").text(friendInfo.friendName)
+        $("#photo").attr("src", friendInfo.friendPhoto)
+      
       });
-
+      $.post("/api/friends", popFriend, function(err){
+    if(err){
+      console.log(err)
+    }
+    console.log("attempting to write file")
+  })
   }
-
+console.log(friendList)
   $(".submit").on("click", function(event) {
     event.preventDefault();
     
@@ -260,12 +293,19 @@ friendList.append(friendInfo);
 
     console.log(newFriend);
     runFriendQuery(newFriend)
+    $("#friendList").append(newFriend)
     // This line is the magic. It"s very similar to the standard ajax function we used.
     // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
     // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or fals
+   
   
-
-
-})
-
+  
+  
+  
+  
+  
+  
+  
+  
+  })
 </script>

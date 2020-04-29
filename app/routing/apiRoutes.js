@@ -1,5 +1,6 @@
 const friendsArray = require ("../data/friends.json");
-const router = require("express").Router();
+const fs = require("fs")
+;const router = require("express").Router();
 // const "db info"
 router.get("/friends", function (req, res) {
      console.log("hitting get route")
@@ -9,8 +10,13 @@ router.get("/friends", function (req, res) {
 router.post("/friends", function (req, res, next){
     console.log("hitting post route")
     var newFriend = req.body;
-    newFriend.push(req.body);
+    newFriend.scoreNumber = parseInt(newFriend.answer, 10)
     console.log(newFriend);
+    friendsArray.push(req.body)
+    console.log(friendsArray)
+    fs.writeFileSync("./db/friends.json", friendsArray, function(data){
+        console.log("Writing File: " + data)
+    })
 })
 
 module.exports=router
