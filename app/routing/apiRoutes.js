@@ -7,11 +7,11 @@ router.get("/friends", function (req, res) {
      res.json(friendsArray);
 });
 
-router.post("/friends", function (req, res, next){
+router.post("/friends", function (req, res){
     console.log("hitting post route")
     var newFriend = req.body;
     newFriend.scoreNumber = parseInt(newFriend.answer, 10)
-    console.log(newFriend);
+    // console.log(newFriend);
     friendsArray.push(req.body)
     console.log(friendsArray)
     fs.writeFileSync("./db/friends.json", friendsArray, function(data){
