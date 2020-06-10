@@ -1,6 +1,6 @@
 # FriendFinder
 
-This full stack application utilizes Node and Express and lets the user find a "best friend" based on survey input from other users.  A display of the most compatible friend will then be displayed.
+ This full stack application utilizes Node and Express and lets the user find a "best friend" based on survey input from other users.  A display of the most compatible friend will then be displayed.
 
 ## Getting Started
 

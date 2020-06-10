@@ -1,4 +1,12 @@
-#photo {
+
+html {
+    background: url(https://images.unsplash.com/photo-1528105862282-e4333365c1d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)
+}
+body {
+
+    margin-top: 6rem;
+}
+#friendphoto {
     width: 50%;
     height: 85%;
 }
