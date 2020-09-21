@@ -1,6 +1,6 @@
 const friendsArray = require ("../data/friends.json");
 const fs = require("fs")
-;const router = require("express").Router();
+const router = require("express").Router();
 // const "db info"
 router.get("/friends", function (req, res) {
      console.log("hitting get route")
