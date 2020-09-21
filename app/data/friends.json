@@ -10,11 +10,25 @@
     
     {
         "friendName": "Pat",
-        "friendPhoto": "saima@example.com",
+        "friendPhoto": "https://images.unsplash.com/photo-1600442715817-4d9c8b6c729f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
         "scoreNumber": 40
             
+    },
+
+    {
+        "friendName": "Gwen",
+        "friendPhoto": "https://images.unsplash.com/photo-1600069148013-ec135ef09714?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80",
+        "scoreNumber": 30
+
+    }, 
+
+    {
+        "friendName": "Ernesto",
+        "friendPhoto": "https://images.unsplash.com/photo-1599488981203-d107749d9feb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+        "scoreNumber": 30
+
     }
-        
+    
 ]
 
 
